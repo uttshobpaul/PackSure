@@ -1101,3 +1101,333 @@ a {
     }
 
 }
+
+
+/* ==============================
+   SCAN PRODUCT
+   ============================== */
+
+.scan-panel {
+    max-width: 900px;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label:first-child {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--text);
+    font-size: 15px;
+    outline: none;
+}
+
+.form-group input[type="text"]:focus {
+    border-color: var(--primary);
+}
+
+.upload-box {
+    min-height: 220px;
+    border: 2px dashed var(--border);
+    border-radius: 16px;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.upload-box:hover {
+    border-color: var(--primary);
+    background: rgba(37, 99, 235, 0.04);
+}
+
+.upload-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.upload-box strong {
+    font-size: 16px;
+}
+
+.upload-box span {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.preview-container {
+    display: none;
+    margin-bottom: 24px;
+}
+
+.preview-container p {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.preview-container img {
+    max-width: 320px;
+    max-height: 320px;
+    border-radius: 14px;
+    object-fit: contain;
+    border: 1px solid var(--border);
+}
+
+.inspection-btn {
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+
+
+/* ==============================
+   INSPECTION RESULT
+   ============================== */
+
+.result-status {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 28px;
+    border-radius: 18px;
+    margin-bottom: 24px;
+    border: 1px solid var(--border);
+}
+
+.result-compliant {
+    background: rgba(34, 197, 94, 0.08);
+}
+
+.result-violation {
+    background: rgba(239, 68, 68, 0.08);
+}
+
+.result-risk {
+    background: rgba(245, 158, 11, 0.10);
+}
+
+.result-icon {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 800;
+    background: var(--surface);
+}
+
+.result-status-content {
+    flex: 1;
+}
+
+.result-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    opacity: 0.7;
+}
+
+.result-status-content h2 {
+    margin: 5px 0;
+    font-size: 28px;
+}
+
+.result-status-content p {
+    margin: 0;
+    opacity: 0.75;
+}
+
+.result-score {
+    text-align: right;
+}
+
+.result-score strong {
+    display: block;
+    font-size: 34px;
+    font-weight: 800;
+}
+
+.result-score span {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+
+/* Product details */
+
+.result-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 10px 0;
+}
+
+.result-details div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.result-details span {
+    font-size: 12px;
+    opacity: 0.65;
+}
+
+.result-details strong {
+    font-size: 15px;
+}
+
+
+/* Analysis summary */
+
+.analysis-summary {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+}
+
+.summary-number {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 800;
+    background: rgba(37, 99, 235, 0.1);
+}
+
+.violation-number {
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.analysis-summary strong {
+    display: block;
+}
+
+.analysis-summary span {
+    display: block;
+    font-size: 12px;
+    opacity: 0.65;
+    margin-top: 3px;
+}
+
+
+/* Result panels */
+
+.result-panel {
+    margin-top: 24px;
+}
+
+.violation-panel {
+    border-left: 4px solid #ef4444;
+}
+
+.violation-symbol {
+    background: rgba(239, 68, 68, 0.1) !important;
+    color: #ef4444;
+}
+
+
+/* Evidence */
+
+.evidence-image-container {
+    text-align: center;
+    padding: 25px;
+}
+
+.evidence-image-container img {
+    max-width: 550px;
+    max-height: 600px;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+}
+/* ================================
+   RESULT ACTION BUTTONS
+================================ */
+
+.result-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+}
+
+.result-actions .primary-btn,
+.result-actions .secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.result-actions .primary-btn {
+    background: var(--primary);
+    color: white;
+}
+
+.result-actions .primary-btn:hover {
+    transform: translateY(-1px);
+    opacity: 0.92;
+}
+
+.result-actions .secondary-btn {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.result-actions .secondary-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+@media (max-width: 600px) {
+
+    .result-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .result-actions .primary-btn,
+    .result-actions .secondary-btn {
+        width: 100%;
+    }
+
+}
