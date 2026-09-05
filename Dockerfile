@@ -10,7 +10,7 @@ RUN apt-get update && \
     libglib2.0-0 && \
     rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first for better Docker caching
+# Copy requirements first for Docker caching
 COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
@@ -21,9 +21,6 @@ COPY . .
 # Collect static files
 RUN python manage.py collectstatic --noinput
 
-# Database migration
-RUN python manage.py migrate
-
 EXPOSE 10000
 
-CMD ["gunicorn", "--bind", "0.0.0.0:10000", "config.wsgi:application"]
+CMD ["sh", "-c", "python manage.py migrate && gunicorn --bind 0.0.0.0:10000 config.wsgi:application"]
