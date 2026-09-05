@@ -9,3 +9,11 @@ test_validation.py
 test_product.jpg
 food_label.png
 .env
+
+venv/
+__pycache__/
+*.pyc
+db.sqlite3
+media/
+staticfiles/
+.env
