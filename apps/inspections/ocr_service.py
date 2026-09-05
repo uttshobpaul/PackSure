@@ -9,7 +9,8 @@ if os.name != "nt":
 
 def extract_text(image_path):
     """
-    Extract raw text from a product-label image using Tesseract OCR.
+    Extract text from a product-label image using Tesseract OCR.
+    Images are resized safely to reduce memory usage.
     """
 
     image = cv2.imread(image_path)
@@ -17,17 +18,24 @@ def extract_text(image_path):
     if image is None:
         return ""
 
+    # Limit maximum image dimension to reduce RAM usage
+    max_dimension = 1600
+
+    height, width = image.shape[:2]
+
+    if max(height, width) > max_dimension:
+        scale = max_dimension / max(height, width)
+
+        image = cv2.resize(
+            image,
+            None,
+            fx=scale,
+            fy=scale,
+            interpolation=cv2.INTER_AREA
+        )
+
     # Convert to grayscale
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
-    # Resize for better OCR
-    gray = cv2.resize(
-        gray,
-        None,
-        fx=2,
-        fy=2,
-        interpolation=cv2.INTER_CUBIC
-    )
 
     # Improve contrast
     processed = cv2.threshold(
@@ -43,7 +51,6 @@ def extract_text(image_path):
     )
 
     return text
-
 
 def extract_fields(text):
     """
