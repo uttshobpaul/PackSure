@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | PackSure{% endblock %}
+
+{% block content %}
+
+<!-- Page Header -->
+<div class="page-header">
+
+    <div>
+        <span class="eyebrow">OVERVIEW</span>
+
+        <h1>Compliance Dashboard</h1>
+
+        <p>
+            Monitor packaged commodity inspections and compliance status.
+        </p>
+    </div>
+
+<a href="{% url 'scan_product' %}" class="primary-btn">
+    + Scan Product
+</a>
+
+</div>
+
+
+<!-- Statistics -->
+<div class="stats-grid">
+
+    <div class="stat-card">
+
+        <div class="stat-top">
+            <span>Total Inspections</span>
+            <div class="stat-icon blue">▣</div>
+        </div>
+
+        <div class="stat-value">1,248</div>
+
+        <div class="stat-change positive">
+            ↑ 12.5%
+            <span>vs last month</span>
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-top">
+            <span>Compliant Products</span>
+            <div class="stat-icon green">✓</div>
+        </div>
+
+        <div class="stat-value">986</div>
+
+        <div class="stat-change positive">
+            ↑ 8.2%
+            <span>vs last month</span>
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-top">
+            <span>Violations</span>
+            <div class="stat-icon red">!</div>
+        </div>
+
+        <div class="stat-value">182</div>
+
+        <div class="stat-change negative">
+            ↑ 4.7%
+            <span>vs last month</span>
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-top">
+            <span>High Risk</span>
+            <div class="stat-icon orange">⚠</div>
+        </div>
+
+        <div class="stat-value">80</div>
+
+        <div class="stat-change neutral">
+            6.4%
+            <span>of inspections</span>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Dashboard Grid -->
+<div class="dashboard-grid">
+
+
+    <!-- Recent Inspections -->
+    <div class="panel inspections-panel">
+
+        <div class="panel-header">
+
+            <div>
+                <h2>Recent Inspections</h2>
+                <p>Latest packaged commodity checks</p>
+            </div>
+
+            <a href="#">View all →</a>
+
+        </div>
+
+
+        <div class="inspection-list">
+
+
+            <div class="inspection-row">
+
+                <div class="product-symbol">FD</div>
+
+                <div class="inspection-product">
+                    <strong>Fortune Rice Bran Oil</strong>
+                    <span>Inspected today · 10:42 AM</span>
+                </div>
+
+                <span class="status compliant">
+                    Compliant
+                </span>
+
+            </div>
+
+
+            <div class="inspection-row">
+
+                <div class="product-symbol">TS</div>
+
+                <div class="inspection-product">
+                    <strong>Tata Salt</strong>
+                    <span>Inspected today · 09:18 AM</span>
+                </div>
+
+                <span class="status violation">
+                    Violation
+                </span>
+
+            </div>
+
+
+            <div class="inspection-row">
+
+                <div class="product-symbol">BR</div>
+
+                <div class="inspection-product">
+                    <strong>Britannia Biscuits</strong>
+                    <span>Yesterday · 04:36 PM</span>
+                </div>
+
+                <span class="status compliant">
+                    Compliant
+                </span>
+
+            </div>
+
+
+            <div class="inspection-row">
+
+                <div class="product-symbol">PT</div>
+
+                <div class="inspection-product">
+                    <strong>Parle-G</strong>
+                    <span>Yesterday · 02:11 PM</span>
+                </div>
+
+                <span class="status high-risk">
+                    High Risk
+                </span>
+
+            </div>
+
+
+            <div class="inspection-row">
+
+                <div class="product-symbol">AM</div>
+
+                <div class="inspection-product">
+                    <strong>Amul Milk Powder</strong>
+                    <span>02 Sep · 11:24 AM</span>
+                </div>
+
+                <span class="status compliant">
+                    Compliant
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- Compliance Overview -->
+    <div class="panel compliance-panel">
+
+        <div class="panel-header">
+
+            <div>
+                <h2>Compliance Overview</h2>
+                <p>Current inspection distribution</p>
+            </div>
+
+        </div>
+
+
+        <div class="compliance-chart">
+
+            <div class="chart-circle">
+                <div>
+                    <strong>79%</strong>
+                    <span>Compliant</span>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="legend">
+
+            <div>
+                <span class="legend-dot compliant-dot"></span>
+                Compliant
+                <strong>79%</strong>
+            </div>
+
+            <div>
+                <span class="legend-dot violation-dot"></span>
+                Violations
+                <strong>15%</strong>
+            </div>
+
+            <div>
+                <span class="legend-dot risk-dot"></span>
+                High Risk
+                <strong>6%</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Quick Actions -->
+<div class="quick-actions">
+
+    <div>
+        <h2>Quick Actions</h2>
+        <p>Start a new compliance workflow</p>
+    </div>
+
+    <div class="action-buttons">
+
+<a href="{% url 'scan_product' %}" class="action-btn primary-action">
+    <span>⌕</span>
+    Scan Product
+</a>
+
+        <a href="#" class="action-btn">
+            <span>▤</span>
+            Generate Report
+        </a>
+
+        <a href="#" class="action-btn">
+            <span>◷</span>
+            View History
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,456 @@
+{% extends "base.html" %}
+
+{% block title %}Inspection Result | PackSure{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+        <span class="eyebrow">INSPECTION COMPLETE</span>
+
+        <h1>Compliance Result</h1>
+
+        <p>
+            Analysis completed for {{ inspection.product_name }}.
+        </p>
+    </div>
+
+    <a href="{% url 'scan_product' %}" class="primary-btn">
+        + New Inspection
+    </a>
+
+</div>
+
+
+<!-- MAIN COMPLIANCE STATUS -->
+
+<div class="result-status
+    {% if analysis.status == 'compliant' %}
+        result-compliant
+    {% elif analysis.status == 'violation' %}
+        result-violation
+    {% else %}
+        result-risk
+    {% endif %}
+">
+
+    <div class="result-icon">
+
+        {% if analysis.status == "compliant" %}
+            ✓
+        {% elif analysis.status == "violation" %}
+            !
+        {% else %}
+            ⚠
+        {% endif %}
+
+    </div>
+
+
+    <div class="result-status-content">
+
+        <span class="result-label">
+            PRODUCT COMPLIANCE STATUS
+        </span>
+
+
+        <h2>
+
+            {% if analysis.status == "compliant" %}
+
+                COMPLIANT
+
+            {% elif analysis.status == "violation" %}
+
+                NON-COMPLIANT
+
+            {% else %}
+
+                HIGH RISK
+
+            {% endif %}
+
+        </h2>
+
+
+        <p>
+
+            {% if analysis.status == "compliant" %}
+
+                No compliance violations were detected.
+
+            {% elif analysis.status == "violation" %}
+
+                Compliance violations were detected. Further inspection may be required.
+
+            {% else %}
+
+                Multiple compliance requirements were not detected. Further inspection is recommended.
+
+            {% endif %}
+
+        </p>
+
+    </div>
+
+
+    <div class="result-score">
+
+        <strong>{{ analysis.score }}%</strong>
+
+        <span>Compliance Score</span>
+
+    </div>
+
+</div>
+
+<!-- OCR Extracted Information -->
+<div class="result-card">
+
+    <h3>Extracted Product Information</h3>
+
+    <div class="extracted-fields">
+
+        <div class="field-row">
+            <span>MRP</span>
+            <strong>
+                {% if fields.mrp %}
+                    ₹{{ fields.mrp }}
+                {% else %}
+                    Not detected
+                {% endif %}
+            </strong>
+        </div>
+
+        <div class="field-row">
+            <span>Net Quantity</span>
+            <strong>
+                {% if fields.net_quantity %}
+                    {{ fields.net_quantity }}
+                {% else %}
+                    Not detected
+                {% endif %}
+            </strong>
+        </div>
+
+        <div class="field-row">
+            <span>Manufacturer</span>
+            <strong>
+                {% if fields.manufacturer %}
+                    {{ fields.manufacturer }}
+                {% else %}
+                    Not detected
+                {% endif %}
+            </strong>
+        </div>
+
+        <div class="field-row">
+            <span>Consumer Care</span>
+            <strong>
+                {% if fields.consumer_care %}
+                    {{ fields.consumer_care }}
+                {% else %}
+                    Not detected
+                {% endif %}
+            </strong>
+        </div>
+
+        <div class="field-row">
+            <span>Manufacturing / Use By</span>
+            <strong>
+                {% if fields.manufacturing_date %}
+                    {{ fields.manufacturing_date }}
+                {% else %}
+                    Not detected
+                {% endif %}
+            </strong>
+        </div>
+
+        <div class="field-row">
+            <span>Nutrition Information</span>
+            <strong>
+                {% if fields.nutrition_information %}
+                    Detected
+                {% else %}
+                    Not detected
+                {% endif %}
+            </strong>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- PRODUCT DETAILS -->
+
+<div class="dashboard-grid">
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <div>
+                <h2>Product Details</h2>
+                <p>Inspection information</p>
+            </div>
+
+        </div>
+
+
+        <div class="result-details">
+
+            <div>
+                <span>Product</span>
+                <strong>{{ inspection.product_name }}</strong>
+            </div>
+
+            <div>
+                <span>Inspection ID</span>
+                <strong>#{{ inspection.id }}</strong>
+            </div>
+
+            <div>
+                <span>Status</span>
+
+                <strong>
+
+                    {% if analysis.status == "compliant" %}
+                        Compliant
+                    {% elif analysis.status == "violation" %}
+                        Non-Compliant
+                    {% else %}
+                        High Risk
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+            <div>
+                <span>Score</span>
+                <strong>{{ analysis.score }}%</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ANALYSIS SUMMARY -->
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <div>
+                <h2>Analysis Summary</h2>
+                <p>Compliance checks performed</p>
+            </div>
+
+        </div>
+
+
+        <div class="analysis-summary">
+
+            <div class="summary-number">
+                {{ analysis.detected|length }}
+            </div>
+
+            <div>
+                <strong>Declarations Detected</strong>
+                <span>
+                    Required package information identified
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="analysis-summary">
+
+            <div class="summary-number violation-number">
+                {{ analysis.violations|length }}
+            </div>
+
+            <div>
+                <strong>Violations Found</strong>
+                <span>
+                    Missing or undetected declarations
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- DECLARATION ANALYSIS -->
+
+<div class="panel result-panel">
+
+    <div class="panel-header">
+
+        <div>
+            <h2>Declaration Analysis</h2>
+
+            <p>
+                Package declarations checked by PackSure
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="inspection-list">
+
+        {% for declaration in analysis.detected %}
+
+        <div class="inspection-row">
+
+            <div class="product-symbol">
+                ✓
+            </div>
+
+            <div class="inspection-product">
+
+                <strong>
+                    {{ declaration }}
+                </strong>
+
+                <span>
+                    Declaration detected
+                </span>
+
+            </div>
+
+            <span class="status compliant">
+                Detected
+            </span>
+
+        </div>
+
+        {% empty %}
+
+        <p>No declarations detected.</p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+
+
+<!-- VIOLATIONS -->
+
+{% if analysis.violations %}
+
+<div class="panel result-panel violation-panel">
+
+    <div class="panel-header">
+
+        <div>
+
+            <h2>⚠ Violations Found</h2>
+
+            <p>
+                {{ analysis.violations|length }}
+                compliance issue{{ analysis.violations|length|pluralize }}
+                detected during inspection.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="inspection-list">
+
+        {% for violation in analysis.violations %}
+
+        <div class="inspection-row">
+
+            <div class="product-symbol violation-symbol">
+                !
+            </div>
+
+
+            <div class="inspection-product">
+
+                <strong>
+                    {{ violation.field }}
+                </strong>
+
+                <span>
+                    {{ violation.message }}
+                </span>
+
+            </div>
+
+
+            <span class="status violation">
+                Violation
+            </span>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endif %}
+
+
+
+<!-- EVIDENCE IMAGE -->
+
+<div class="panel result-panel">
+
+    <div class="panel-header">
+
+        <div>
+
+            <h2>Evidence Image</h2>
+
+            <p>
+                Product image submitted for inspection
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="evidence-image-container">
+
+        <img
+            src="{{ inspection.image.url }}"
+            alt="Product package evidence"
+        >
+
+    </div>
+
+</div>
+
+
+
+<div class="result-actions">
+
+    <a href="{% url 'generate_report' inspection.id %}" class="primary-btn">
+        ↓ Download PDF Report
+    </a>
+
+    <a href="{% url 'scan_product' %}" class="secondary-btn">
+        Scan Another Product
+    </a>
+
+</div>
+{% endblock %}

@@ -1,0 +1,144 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}PackSure{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <div class="app-layout">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                <div class="brand-icon">P</div>
+
+                <div>
+                    <h2>PackSure</h2>
+                    <span>Compliance System</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <p class="nav-heading">MAIN</p>
+
+                <a href="#" class="nav-link active">
+                    <span class="nav-icon">⌂</span>
+                    Dashboard
+                </a>
+
+                <a href="{% url 'scan_product' %}" class="nav-link">
+                    <span class="nav-icon">⌕</span>
+                        Scan Product            
+                </a>
+
+                <a href="#" class="nav-link">
+                    <span class="nav-icon">▣</span>
+                    Inspections
+                </a>
+
+                <p class="nav-heading">MANAGEMENT</p>
+
+                <a href="#" class="nav-link">
+                    <span class="nav-icon">◫</span>
+                    Products
+                </a>
+
+                <a href="#" class="nav-link">
+                    <span class="nav-icon">⚠</span>
+                    Violations
+                </a>
+
+                <a href="#" class="nav-link">
+                    <span class="nav-icon">▤</span>
+                    Reports
+                </a>
+
+                <a href="{% url 'inspection_history' %}" class="nav-link">
+                    <span class="nav-icon">◷</span>
+                    History
+                </a>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <a href="#" class="nav-link">
+                    <span class="nav-icon">⚙</span>
+                    Settings
+                </a>
+
+                <div class="user-card">
+                    <div class="avatar">O</div>
+
+                    <div class="user-info">
+                        <strong>Officer</strong>
+                        <span>Compliance Officer</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Topbar -->
+            <header class="topbar">
+
+                <div class="mobile-brand">
+                    <div class="brand-icon">P</div>
+                    <strong>PackSure</strong>
+                </div>
+
+                <div class="topbar-actions">
+
+                    <button class="notification-btn" title="Notifications">
+                        🔔
+                        <span class="notification-dot"></span>
+                    </button>
+
+                    <div class="topbar-user">
+                        <div class="avatar">O</div>
+
+                        <div>
+                            <strong>Officer</strong>
+                            <span>Compliance Officer</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- Page Content -->
+            <section class="page-container">
+
+                {% block content %}
+                {% endblock %}
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+
+</html>
