@@ -13,6 +13,17 @@ def scan_product(request):
         product_name = request.POST.get("product_name", "")
         image = request.FILES.get("image")
 
+        MAX_UPLOAD_SIZE = 8 * 1024 * 1024  # 8 MB
+
+        if image and image.size > MAX_UPLOAD_SIZE:
+            return render(
+                request,
+                "scan_product.html",
+            {
+            "error": "Image is too large. Please upload an image smaller than 8 MB."
+            }
+        )
+
         if image:
 
             # Save uploaded image temporarily
