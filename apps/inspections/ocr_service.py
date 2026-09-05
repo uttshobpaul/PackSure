@@ -1,7 +1,11 @@
+
+import os
 import re
 import cv2
 import pytesseract
 
+if os.name != "nt":
+    pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 
 def extract_text(image_path):
     """
