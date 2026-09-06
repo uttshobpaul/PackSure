@@ -1,0 +1,335 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Reports | PackSure
+{% endblock %}
+
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'css/reports.css' %}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="reports-page">
+
+
+    <!-- ==========================================
+         PAGE HEADER
+    =========================================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <span class="eyebrow">
+                DOCUMENTATION
+            </span>
+
+            <h1>
+                Reports
+            </h1>
+
+            <p>
+                View and download compliance inspection reports.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==========================================
+         SUMMARY
+    =========================================== -->
+
+    <div class="report-summary">
+
+        <div class="summary-card">
+
+            <div class="summary-icon">
+                ▤
+            </div>
+
+            <div>
+
+                <span>
+                    Total Reports
+                </span>
+
+                <strong>
+                    {{ inspections|length }}
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==========================================
+         REPORT PANEL
+    =========================================== -->
+
+    <div class="panel reports-panel">
+
+
+        <div class="panel-header">
+
+            <div>
+
+                <h2>
+                    Inspection Reports
+                </h2>
+
+                <p>
+                    Generate and download reports for completed inspections.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        {% if inspections %}
+
+
+        <div class="reports-table-wrapper">
+
+            <table class="reports-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            ID
+                        </th>
+
+                        <th>
+                            Product
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Score
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Actions
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for inspection in inspections %}
+
+                    <tr>
+
+                        <!-- ID -->
+
+                        <td>
+
+                            <span class="inspection-id">
+
+                                #{{ inspection.id }}
+
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- PRODUCT -->
+
+                        <td>
+
+                            <div class="product-cell">
+
+                                <strong>
+
+                                    {% if inspection.product_name %}
+
+                                        {{ inspection.product_name }}
+
+                                    {% else %}
+
+                                        Unknown Product
+
+                                    {% endif %}
+
+                                </strong>
+
+                            </div>
+
+                        </td>
+
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            <span
+                                class="status-badge status-{{ inspection.status }}"
+                            >
+
+                                {{ inspection.get_status_display }}
+
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- SCORE -->
+
+                        <td>
+
+                            <div class="score-wrapper">
+
+                                <strong>
+                                    {{ inspection.compliance_score }}%
+                                </strong>
+
+                                <div class="score-bar">
+
+                                    <div
+                                        class="score-fill"
+                                        style="width: {{ inspection.compliance_score }}%;"
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+
+                        <!-- DATE -->
+
+                        <td>
+
+                            <span class="report-date">
+
+                                {{ inspection.created_at|date:"d M Y" }}
+
+                                <small>
+
+                                    {{ inspection.created_at|date:"h:i A" }}
+
+                                </small>
+
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- ACTIONS -->
+
+                        <td>
+
+                            <div class="report-actions">
+
+                                <a
+                                    href="{% url 'inspection_result' inspection.id %}"
+                                    class="report-btn view-btn"
+                                >
+                                    View
+                                </a>
+
+
+                                <a
+                                    href="{% url 'generate_report' inspection.id %}"
+                                    class="report-btn download-btn"
+                                >
+                                    ↓ PDF
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- ==========================================
+             EMPTY STATE
+        =========================================== -->
+
+        <div class="empty-reports">
+
+            <div class="empty-icon">
+                ▤
+            </div>
+
+            <h3>
+                No Reports Yet
+            </h3>
+
+            <p>
+                Complete a product inspection to generate your first report.
+            </p>
+
+            <a
+                href="{% url 'scan_product' %}"
+                class="primary-btn"
+            >
+                Scan Product →
+            </a>
+
+        </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+</div>
+
+{% endblock %}
+
+
+
+{% block extra_js %}
+
+<script src="{% static 'js/reports.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Inspections | PackSure{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/inspections.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="inspections-page">
+
+    <div class="page-header">
+
+        <div>
+
+            <span class="eyebrow">
+                COMPLIANCE
+            </span>
+
+            <h1>
+                Inspections
+            </h1>
+
+            <p>
+                View and manage all product compliance inspections.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    {% if inspections %}
+
+        <div class="inspections-list">
+
+            {% for inspection in inspections %}
+
+                <div class="inspection-card">
+
+                    <div class="inspection-card-top">
+
+                        <div>
+
+                            <span class="inspection-id">
+                                Inspection #{{ inspection.id }}
+                            </span>
+
+                            <h2>
+                                {{ inspection.product_name|default:"Unnamed Product" }}
+                            </h2>
+
+                        </div>
+
+
+                        <span class="inspection-status status-{{ inspection.status }}">
+                            {{ inspection.get_status_display }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="inspection-details">
+
+                        <div class="inspection-detail">
+
+                            <span>
+                                Compliance Score
+                            </span>
+
+                            <strong>
+                                {{ inspection.compliance_score }}%
+                            </strong>
+
+                        </div>
+
+
+                        <div class="inspection-detail">
+
+                            <span>
+                                Inspection Date
+                            </span>
+
+                            <strong>
+                                {{ inspection.created_at|date:"d M Y" }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="inspection-detail">
+
+                            <span>
+                                Time
+                            </span>
+
+                            <strong>
+                                {{ inspection.created_at|date:"h:i A" }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="inspection-actions">
+
+                        <a
+                            href="{% url 'inspection_result' inspection.id %}"
+                            class="inspection-action view-result"
+                        >
+                            View Result
+                        </a>
+
+
+                        <a
+                            href="{% url 'generate_report' inspection.id %}"
+                            class="inspection-action view-report"
+                        >
+                            Generate Report
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-inspections">
+
+            <div class="empty-inspection-icon">
+                ✓
+            </div>
+
+            <h2>
+                No Inspections Yet
+            </h2>
+
+            <p>
+                Start your first product inspection from the Scan Product page.
+            </p>
+
+            <a
+                href="{% url 'scan_product' %}"
+                class="primary-btn"
+            >
+                Scan Product →
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

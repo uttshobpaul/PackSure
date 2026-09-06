@@ -1,0 +1,435 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Products | PackSure{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/products.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="products-page">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header products-header">
+
+        <div>
+            <span class="eyebrow">MANAGEMENT</span>
+
+            <h1>Products</h1>
+
+            <p>
+                View and manage products inspected through PackSure.
+            </p>
+        </div>
+
+        <button
+            type="button"
+            class="primary-btn add-product-btn"
+            id="addProductBtn"
+        >
+            + Add Product
+        </button>
+
+    </div>
+
+
+    <!-- STAT CARDS -->
+    <div class="product-stats">
+
+        <div class="product-stat-card">
+
+            <div class="stat-icon">
+                ◫
+            </div>
+
+            <div>
+                <span>Total Products</span>
+                <strong id="totalProducts">0</strong>
+            </div>
+
+        </div>
+
+
+        <div class="product-stat-card">
+
+            <div class="stat-icon compliant">
+                ✓
+            </div>
+
+            <div>
+                <span>Compliant</span>
+                <strong id="compliantProducts">0</strong>
+            </div>
+
+        </div>
+
+
+        <div class="product-stat-card">
+
+            <div class="stat-icon violation">
+                ⚠
+            </div>
+
+            <div>
+                <span>Violations</span>
+                <strong id="violationProducts">0</strong>
+            </div>
+
+        </div>
+
+
+        <div class="product-stat-card">
+
+            <div class="stat-icon risk">
+                !
+            </div>
+
+            <div>
+                <span>High Risk</span>
+                <strong id="highRiskProducts">0</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PRODUCT PANEL -->
+    <div class="panel products-panel">
+
+        <!-- TOOLBAR -->
+        <div class="products-toolbar">
+
+            <div class="products-search">
+
+                <span class="search-icon">
+                    ⌕
+                </span>
+
+                <input
+                    type="text"
+                    id="productSearch"
+                    placeholder="Search products..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <div class="products-filter">
+
+                <select id="statusFilter">
+
+                    <option value="all">
+                        All Status
+                    </option>
+
+                    <option value="compliant">
+                        Compliant
+                    </option>
+
+                    <option value="violation">
+                        Violation
+                    </option>
+
+                    <option value="high_risk">
+                        High Risk
+                    </option>
+
+                    <option value="pending">
+                        Pending
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT TABLE -->
+        <div class="products-table-wrapper">
+
+            <table class="products-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Product
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Compliance
+                        </th>
+
+                        <th>
+                            Last Inspection
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="productsTableBody">
+
+                    {% for product in products %}
+
+                    <tr
+                        class="product-row"
+                        data-name="{{ product.product_name|lower }}"
+                        data-status="{{ product.status }}"
+                    >
+
+                        <td>
+
+                            <div class="product-info">
+
+                                <div class="product-avatar">
+                                    {{ product.product_name|first|upper }}
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        {{ product.product_name|default:"Unnamed Product" }}
+                                    </strong>
+
+                                    <span>
+                                        Inspection #{{ product.id }}
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            {% if product.status == "compliant" %}
+
+                                <span class="status-badge status-compliant">
+                                    ✓ Compliant
+                                </span>
+
+                            {% elif product.status == "violation" %}
+
+                                <span class="status-badge status-violation">
+                                    ⚠ Violation
+                                </span>
+
+                            {% elif product.status == "high_risk" %}
+
+                                <span class="status-badge status-risk">
+                                    ! High Risk
+                                </span>
+
+                            {% else %}
+
+                                <span class="status-badge status-pending">
+                                    ● Pending
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="score-wrapper">
+
+                                <div class="score-bar">
+
+                                    <div
+                                        class="score-fill
+                                        {% if product.compliance_score >= 80 %}
+                                            score-good
+                                        {% elif product.compliance_score >= 50 %}
+                                            score-medium
+                                        {% else %}
+                                            score-low
+                                        {% endif %}"
+                                        style="width: {{ product.compliance_score }}%;"
+                                    >
+                                    </div>
+
+                                </div>
+
+                                <strong>
+                                    {{ product.compliance_score }}%
+                                </strong>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="inspection-date">
+                                {{ product.created_at|date:"d M Y" }}
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <a
+                                href="{% url 'inspection_result' product.id %}"
+                                class="view-btn"
+                            >
+                                View
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr id="emptyProductsRow">
+
+                        <td
+                            colspan="5"
+                            class="empty-products"
+                        >
+
+                            <div class="empty-icon">
+                                ◫
+                            </div>
+
+                            <h3>
+                                No Products Yet
+                            </h3>
+
+                            <p>
+                                Products will appear here after inspections.
+                            </p>
+
+                            <a
+                                href="{% url 'scan_product' %}"
+                                class="primary-btn"
+                            >
+                                Scan Product
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- NO SEARCH RESULT -->
+        <div
+            class="no-search-result"
+            id="noSearchResult"
+        >
+
+            <div class="empty-icon">
+                ⌕
+            </div>
+
+            <h3>
+                No matching products
+            </h3>
+
+            <p>
+                Try changing your search or filter.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ADD PRODUCT MODAL -->
+
+<div
+    class="product-modal"
+    id="productModal"
+    aria-hidden="true"
+>
+
+    <div class="product-modal-overlay"></div>
+
+
+    <div class="product-modal-box">
+
+        <button
+            type="button"
+            class="modal-close"
+            id="closeProductModal"
+            aria-label="Close"
+        >
+            ×
+        </button>
+
+
+        <div class="modal-icon">
+            +
+        </div>
+
+
+        <h2>
+            Add Product
+        </h2>
+
+        <p>
+            To add a product, start a new product inspection.
+        </p>
+
+
+        <div class="modal-actions">
+
+            <button
+                type="button"
+                class="secondary-btn"
+                id="cancelProductBtn"
+            >
+                Cancel
+            </button>
+
+            <a
+                href="{% url 'scan_product' %}"
+                class="primary-btn"
+            >
+                Start Inspection →
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script src="{% static 'js/products.js' %}"></script>
+{% endblock %}

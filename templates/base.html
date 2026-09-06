@@ -1,44 +1,48 @@
 {% load static %}
 
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>
-    {% block title %}PackSure{% endblock %}
-</title>
-
-
-<!-- MAIN CSS -->
-
-<link
-    rel="stylesheet"
-    href="{% static 'css/style.css' %}"
->
+    <title>
+        {% block title %}PackSure{% endblock %}
+    </title>
 
 
-<!-- RESPONSIVE NAVBAR CSS -->
+    <!-- =========================================
+         MAIN CSS
+    ========================================== -->
 
-<link
-    rel="stylesheet"
-    href="{% static 'css/navbar.css' %}"
->
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
 
 
-<!-- PAGE SPECIFIC CSS -->
+    <!-- =========================================
+         NAVBAR / MOBILE CSS
+    ========================================== -->
 
-{% block extra_css %}
+    <link
+        rel="stylesheet"
+        href="{% static 'css/navbar.css' %}"
+    >
 
-{% endblock %}
+
+    <!-- =========================================
+         PAGE SPECIFIC CSS
+    ========================================== -->
+
+    {% block extra_css %}
+    {% endblock %}
 
 </head>
 
@@ -49,197 +53,29 @@
 <div class="app-layout">
 
 
-<!-- =====================================================
-     SIDEBAR
-===================================================== -->
+    <!-- =========================================
+         SIDEBAR
+    ========================================== -->
 
-<aside class="sidebar">
+    <aside class="sidebar">
 
 
-    <!-- BRAND -->
+        <!-- BRAND -->
 
-    <div class="brand">
+        <div class="brand">
 
-        <div class="brand-icon">
-            P
-        </div>
-
-        <div>
-
-            <h2>
-                PackSure
-            </h2>
-
-            <span>
-                Compliance System
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <!-- NAVIGATION -->
-
-    <nav class="sidebar-nav">
-
-
-        <p class="nav-heading">
-            MAIN
-        </p>
-
-
-        <a
-            href="{% url 'dashboard' %}"
-            class="nav-link
-            {% if request.resolver_match.url_name == 'dashboard' %}
-                active
-            {% endif %}"
-        >
-
-            <span class="nav-icon">
-                ⌂
-            </span>
-
-            Dashboard
-
-        </a>
-
-
-        <a
-            href="{% url 'scan_product' %}"
-            class="nav-link
-            {% if request.resolver_match.url_name == 'scan_product' %}
-                active
-            {% endif %}"
-        >
-
-            <span class="nav-icon">
-                ⌕
-            </span>
-
-            Scan Product
-
-        </a>
-
-
-        <a
-            href="#"
-            class="nav-link"
-        >
-
-            <span class="nav-icon">
-                ▣
-            </span>
-
-            Inspections
-
-        </a>
-
-
-        <p class="nav-heading">
-            MANAGEMENT
-        </p>
-
-
-        <a
-            href="#"
-            class="nav-link"
-        >
-
-            <span class="nav-icon">
-                ◫
-            </span>
-
-            Products
-
-        </a>
-
-
-        <a
-            href="#"
-            class="nav-link"
-        >
-
-            <span class="nav-icon">
-                ⚠
-            </span>
-
-            Violations
-
-        </a>
-
-
-        <a
-            href="#"
-            class="nav-link"
-        >
-
-            <span class="nav-icon">
-                ▤
-            </span>
-
-            Reports
-
-        </a>
-
-
-        <a
-            href="{% url 'inspection_history' %}"
-            class="nav-link
-            {% if request.resolver_match.url_name == 'inspection_history' %}
-                active
-            {% endif %}"
-        >
-
-            <span class="nav-icon">
-                ◷
-            </span>
-
-            History
-
-        </a>
-
-
-    </nav>
-
-
-    <!-- SIDEBAR BOTTOM -->
-
-    <div class="sidebar-bottom">
-
-
-        <a
-            href="{% url 'dashboard' %}"
-            class="nav-link
-            {% if request.resolver_match.url_name == 'dashboard' %}
-                active
-            {% endif %}"
-        >
-
-            <span class="nav-icon">
-                ⚙
-            </span>
-
-            Settings
-
-        </a>
-
-
-        <div class="user-card">
-
-            <div class="avatar">
-                O
+            <div class="brand-icon">
+                P
             </div>
 
-            <div class="user-info">
+            <div>
 
-                <strong>
-                    Officer
-                </strong>
+                <h2>
+                    PackSure
+                </h2>
 
                 <span>
-                    Compliance Officer
+                    Compliance System
                 </span>
 
             </div>
@@ -247,104 +83,162 @@
         </div>
 
 
-    </div>
+        <!-- =====================================
+             SIDEBAR NAVIGATION
+        ====================================== -->
 
-</aside>
-
-
-
-<!-- =====================================================
-     MOBILE MENU OVERLAY
-===================================================== -->
-
-<div
-    class="mobile-menu-overlay"
-    id="mobileMenuOverlay"
-></div>
+        <nav class="sidebar-nav">
 
 
-
-<!-- =====================================================
-     MAIN CONTENT
-===================================================== -->
-
-<main class="main-content">
+            <p class="nav-heading">
+                MAIN
+            </p>
 
 
-    <!-- =================================================
-         TOPBAR
-    ================================================== -->
+            <!-- DASHBOARD -->
 
-    <header class="topbar">
-
-
-        <!-- BACK BUTTON -->
-
-        {% if request.resolver_match.url_name != 'dashboard' %}
-
-        <div class="topbar-left">
-
-            <button
-                type="button"
-                class="page-back-btn"
-                id="pageBackBtn"
-                aria-label="Go back"
-            >
-                ←
-            </button>
-
-        </div>
-
-        {% endif %}
-
-
-
-        <!-- MOBILE BRAND -->
-
-        <div class="mobile-brand">
-
-            <div class="mobile-brand-icon">
-                P
-            </div>
-
-            <div class="mobile-brand-name">
-                PackSure
-            </div>
-
-        </div>
-
-
-
-        <!-- TOPBAR ACTIONS -->
-
-        <div class="topbar-actions">
-
-
-            <!-- NOTIFICATION -->
-
-            <button
-                class="notification-btn"
-                title="Notifications"
+            <a
+                href="{% url 'dashboard' %}"
+                class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}"
             >
 
-                🔔
+                <span class="nav-icon">
+                    ⌂
+                </span>
 
-                <span class="notification-dot"></span>
+                Dashboard
 
-            </button>
+            </a>
 
+
+            <!-- SCAN PRODUCT -->
+
+            <a
+                href="{% url 'scan_product' %}"
+                class="nav-link {% if request.resolver_match.url_name == 'scan_product' %}active{% endif %}"
+            >
+
+                <span class="nav-icon">
+                    ⌕
+                </span>
+
+                Scan Product
+
+            </a>
+
+
+            <!-- INSPECTIONS
+                 KEEP DISABLED FOR NOW -->
+
+<a
+    href="{% url 'inspections' %}"
+    class="nav-link {% if request.resolver_match.url_name == 'inspections' %}active{% endif %}"
+>
+    <span class="nav-icon">▣</span>
+    Inspections
+</a>
+
+
+            <p class="nav-heading">
+                MANAGEMENT
+            </p>
+
+
+            <!-- PRODUCTS -->
+
+<a
+    href="{% url 'products' %}"
+    class="nav-link {% if request.resolver_match.url_name == 'products' %}active{% endif %}"
+>
+    <span class="nav-icon">
+        ◫
+    </span>
+
+    Products
+</a>
+
+
+            <!-- VIOLATIONS
+                 KEEP DISABLED FOR NOW -->
+
+<a
+    href="{% url 'violations' %}"
+    class="nav-link {% if request.resolver_match.url_name == 'violations' %}active{% endif %}"
+>
+    <span class="nav-icon">
+        ⚠
+    </span>
+
+    Violations
+</a>
+
+
+            <!-- REPORTS
+                 KEEP DISABLED FOR NOW -->
+
+<a
+    href="{% url 'reports' %}"
+    class="nav-link {% if request.resolver_match.url_name == 'reports' %}active{% endif %}"
+>
+    <span class="nav-icon">
+        ▤
+    </span>
+
+    Reports
+</a>
+
+
+            <!-- HISTORY -->
+
+            <a
+                href="{% url 'inspection_history' %}"
+                class="nav-link {% if request.resolver_match.url_name == 'inspection_history' %}active{% endif %}"
+            >
+
+                <span class="nav-icon">
+                    ◷
+                </span>
+
+                History
+
+            </a>
+
+
+        </nav>
+
+
+        <!-- =====================================
+             SIDEBAR BOTTOM
+        ====================================== -->
+
+        <div class="sidebar-bottom">
+
+
+            <!-- SETTINGS -->
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}"
+            >
+
+                <span class="nav-icon">
+                    ⚙
+                </span>
+
+                Settings
+
+            </a>
 
 
             <!-- USER -->
 
-            <div class="topbar-user">
+            <div class="user-card">
 
                 <div class="avatar">
                     O
                 </div>
 
-
-                <div>
+                <div class="user-info">
 
                     <strong>
                         Officer
@@ -359,50 +253,169 @@
             </div>
 
 
-
-            <!-- MOBILE MENU -->
-
-            <button
-                type="button"
-                class="mobile-menu-btn"
-                id="mobileMenuBtn"
-                aria-label="Open menu"
-                aria-expanded="false"
-            >
-                ☰
-            </button>
-
-
         </div>
 
 
-    </header>
+    </aside>
 
 
 
-    <!-- =================================================
-         PAGE CONTENT
-    ================================================== -->
+    <!-- =========================================
+         MOBILE MENU OVERLAY
+    ========================================== -->
 
-    <section class="page-container">
-
-        {% block content %}
-
-        {% endblock %}
-
-    </section>
+    <div
+        class="mobile-menu-overlay"
+        id="mobileMenuOverlay"
+    ></div>
 
 
-</main>
+
+    <!-- =========================================
+         MAIN CONTENT
+    ========================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =====================================
+             TOPBAR
+        ====================================== -->
+
+        <header class="topbar">
+
+
+            <!-- BACK BUTTON
+                 Hidden on Dashboard -->
+
+            {% if request.resolver_match.url_name != 'dashboard' %}
+
+            <div class="topbar-left">
+
+                <button
+                    type="button"
+                    class="page-back-btn"
+                    id="pageBackBtn"
+                    aria-label="Go back"
+                >
+                    ←
+                </button>
+
+            </div>
+
+            {% endif %}
+
+
+
+            <!-- =================================
+                 MOBILE BRAND
+            ================================== -->
+
+            <div class="mobile-brand">
+
+                <div class="mobile-brand-icon">
+                    P
+                </div>
+
+                <div class="mobile-brand-name">
+                    PackSure
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================
+                 TOPBAR ACTIONS
+            ================================== -->
+
+            <div class="topbar-actions">
+
+
+                <!-- NOTIFICATION -->
+
+                <button
+                    type="button"
+                    class="notification-btn"
+                    title="Notifications"
+                >
+
+                    🔔
+
+                    <span class="notification-dot"></span>
+
+                </button>
+
+
+
+                <!-- USER -->
+
+                <div class="topbar-user">
+
+                    <div class="avatar">
+                        O
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Officer
+                        </strong>
+
+                        <span>
+                            Compliance Officer
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MOBILE MENU -->
+
+                <button
+                    type="button"
+                    class="mobile-menu-btn"
+                    id="mobileMenuBtn"
+                    aria-label="Open menu"
+                    aria-expanded="false"
+                >
+
+                    ☰
+
+                </button>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =====================================
+             PAGE CONTENT
+        ====================================== -->
+
+        <section class="page-container">
+
+            {% block content %}
+            {% endblock %}
+
+        </section>
+
+
+    </main>
 
 
 </div>
 
 
 
-<!-- =====================================================
-     EXISTING MAIN JS
-===================================================== -->
+<!-- =========================================
+     MAIN JAVASCRIPT
+========================================== -->
 
 <script
     src="{% static 'js/main.js' %}"
@@ -410,9 +423,9 @@
 
 
 
-<!-- =====================================================
-     MOBILE MENU JS
-===================================================== -->
+<!-- =========================================
+     MOBILE MENU JAVASCRIPT
+========================================== -->
 
 <script
     src="{% static 'js/mobile-menu.js' %}"
@@ -420,10 +433,11 @@
 
 
 
-<!-- PAGE SPECIFIC JS -->
+<!-- =========================================
+     PAGE SPECIFIC JAVASCRIPT
+========================================== -->
 
 {% block extra_js %}
-
 {% endblock %}
 
 

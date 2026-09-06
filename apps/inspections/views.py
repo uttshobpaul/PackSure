@@ -82,6 +82,76 @@ def scan_product(request):
 
     return render(request, "scan_product.html")
 
+def inspections(request):
+
+    inspections = Inspection.objects.all().order_by("-created_at")
+
+    return render(
+        request,
+        "inspections.html",
+        {
+            "inspections": inspections
+        }
+    )
+
+
+def inspection_result(request, inspection_id):
+
+    inspection = Inspection.objects.get(
+        id=inspection_id
+    )
+
+    # Re-run the compliance analysis
+    analysis = check_compliance(
+        inspection.product_name
+    )
+
+    # Extract fields from the saved image
+    image_path = inspection.image.path
+
+    text = extract_text(image_path)
+
+    fields = extract_fields(text)
+
+    validation = validate_product_label(text)
+
+    return render(
+        request,
+        "inspection_result.html",
+        {
+            "inspection": inspection,
+            "analysis": analysis,
+            "fields": fields,
+            "validation": validation,
+            "ocr_text": text,
+        }
+    )
+
+def violations(request):
+
+    violations = Inspection.objects.filter(
+        status__in=["violation", "high_risk"]
+    ).order_by("-created_at")
+
+    high_risk_count = violations.filter(
+        status="high_risk"
+    ).count()
+
+    review_count = violations.filter(
+        status="violation"
+    ).count()
+
+    return render(
+        request,
+        "violations.html",
+        {
+            "violations": violations,
+            "high_risk_count": high_risk_count,
+            "review_count": review_count,
+        }
+    )
+
+
 def inspection_history(request):
 
     inspections = Inspection.objects.all().order_by("-created_at")
@@ -226,3 +296,95 @@ def generate_report(request, inspection_id):
     pdf.save()
 
     return response
+
+def products(request):
+
+    products = Inspection.objects.all().order_by("-created_at")
+
+    return render(
+        request,
+        "products.html",
+        {
+            "products": products
+        }
+    )
+
+def violations(request):
+
+    inspections = Inspection.objects.filter(
+        status__in=["violation", "high_risk"]
+    ).order_by("-created_at")
+
+
+    return render(
+        request,
+        "violations.html",
+        {
+            "inspections": inspections
+        }
+    )
+
+def inspections(request):
+
+    inspections = Inspection.objects.all().order_by("-created_at")
+
+    return render(
+        request,
+        "inspections.html",
+        {
+            "inspections": inspections
+        }
+    )
+
+def violations(request):
+
+    inspections = Inspection.objects.exclude(
+        status="compliant"
+    ).order_by("-created_at")
+
+    return render(
+        request,
+        "violations.html",
+        {
+            "inspections": inspections
+        }
+    )
+
+def products(request):
+
+    products = Inspection.objects.all().order_by("-created_at")
+
+    return render(
+        request,
+        "products.html",
+        {
+            "products": products
+        }
+    )
+def products(request):
+
+    inspections = Inspection.objects.all().order_by("-created_at")
+
+    return render(
+        request,
+        "products.html",
+        {
+            "inspections": inspections
+        }
+    )
+
+# ==========================================
+# REPORTS
+# ==========================================
+
+def reports(request):
+
+    inspections = Inspection.objects.all().order_by("-created_at")
+
+    return render(
+        request,
+        "reports.html",
+        {
+            "inspections": inspections
+        }
+    )

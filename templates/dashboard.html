@@ -111,7 +111,7 @@
                 <p>Latest packaged commodity checks</p>
             </div>
 
-            <a href="#">View all →</a>
+            <a href="{% url 'inspections' %}">View all →</a>
 
         </div>
 
@@ -271,12 +271,11 @@
     Scan Product
 </a>
 
-        <a href="#" class="action-btn">
-            <span>▤</span>
-            Generate Report
-        </a>
+<a href="{% url 'reports' %}" class="quick-action-btn">
+    ▣ Generate Report
+</a>
 
-        <a href="#" class="action-btn">
+        <a href="{% url 'inspection_history' %}"> 
             <span>◷</span>
             View History
         </a>

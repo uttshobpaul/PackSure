@@ -1,0 +1,492 @@
+/* =====================================================
+   PACKSURE REPORTS PAGE
+===================================================== */
+
+.reports-page {
+    width: 100%;
+}
+
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+.report-summary {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(220px, 1fr)
+    );
+
+    gap: 18px;
+
+    margin-bottom: 25px;
+}
+
+
+.summary-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 22px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    box-shadow: var(--shadow);
+
+    transition: .2s ease;
+}
+
+
+.summary-card:hover {
+    transform: translateY(-2px);
+}
+
+
+.summary-icon {
+    width: 50px;
+
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: rgba(0, 174, 239, .12);
+
+    color: var(--primary);
+
+    font-size: 25px;
+}
+
+
+.summary-card span {
+    display: block;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    margin-bottom: 4px;
+}
+
+
+.summary-card strong {
+    display: block;
+
+    color: var(--text);
+
+    font-size: 25px;
+}
+
+
+
+/* =====================================================
+   REPORT PANEL
+===================================================== */
+
+.reports-panel {
+    width: 100%;
+
+    overflow: hidden;
+}
+
+
+.reports-panel .panel-header {
+    margin-bottom: 25px;
+}
+
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.reports-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+.reports-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 850px;
+}
+
+
+.reports-table th {
+    text-align: left;
+
+    padding: 15px 16px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .04em;
+
+    color: #64748b;
+
+    background: rgba(148, 163, 184, .06);
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.reports-table td {
+    padding: 17px 16px;
+
+    border-bottom: 1px solid var(--border);
+
+    color: var(--text);
+
+    vertical-align: middle;
+}
+
+
+.reports-table tbody tr {
+    transition: .2s ease;
+}
+
+
+.reports-table tbody tr:hover {
+    background: rgba(0, 174, 239, .025);
+}
+
+
+.reports-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+
+/* =====================================================
+   INSPECTION ID
+===================================================== */
+
+.inspection-id {
+    font-weight: 700;
+
+    color: var(--primary);
+}
+
+
+
+/* =====================================================
+   PRODUCT
+===================================================== */
+
+.product-cell strong {
+    font-size: 14px;
+
+    color: var(--text);
+}
+
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 6px 10px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+.status-compliant {
+    background: rgba(34, 197, 94, .12);
+
+    color: #16a34a;
+}
+
+
+.status-violation {
+    background: rgba(239, 68, 68, .12);
+
+    color: #dc2626;
+}
+
+
+.status-high_risk {
+    background: rgba(245, 158, 11, .15);
+
+    color: #d97706;
+}
+
+
+.status-pending {
+    background: rgba(100, 116, 139, .12);
+
+    color: #64748b;
+}
+
+
+
+/* =====================================================
+   SCORE
+===================================================== */
+
+.score-wrapper {
+    min-width: 100px;
+}
+
+
+.score-wrapper strong {
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 13px;
+}
+
+
+.score-bar {
+    width: 100%;
+
+    height: 6px;
+
+    background: rgba(148, 163, 184, .18);
+
+    border-radius: 999px;
+
+    overflow: hidden;
+}
+
+
+.score-fill {
+    height: 100%;
+
+    background: var(--primary);
+
+    border-radius: 999px;
+
+    transition: width .5s ease;
+}
+
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+.report-date {
+    display: flex;
+
+    flex-direction: column;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+.report-date small {
+    margin-top: 3px;
+
+    font-size: 11px;
+
+    color: #94a3b8;
+
+    font-weight: 500;
+}
+
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.report-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    flex-wrap: wrap;
+}
+
+
+.report-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 58px;
+
+    padding: 8px 12px;
+
+    border-radius: 9px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    transition: .2s ease;
+}
+
+
+.view-btn {
+    color: var(--primary);
+
+    border: 1px solid var(--border);
+
+    background: var(--surface);
+}
+
+
+.view-btn:hover {
+    border-color: var(--primary);
+
+    background: rgba(0, 174, 239, .06);
+
+    transform: translateY(-1px);
+}
+
+
+.download-btn {
+    color: white;
+
+    background: var(--primary);
+
+    border: 1px solid var(--primary);
+}
+
+
+.download-btn:hover {
+    opacity: .9;
+
+    transform: translateY(-1px);
+}
+
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.empty-reports {
+    text-align: center;
+
+    padding: 70px 25px;
+}
+
+
+.empty-icon {
+    width: 70px;
+
+    height: 70px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background: rgba(0, 174, 239, .1);
+
+    color: var(--primary);
+
+    font-size: 32px;
+}
+
+
+.empty-reports h3 {
+    margin: 0 0 10px;
+
+    color: var(--text);
+
+    font-size: 21px;
+}
+
+
+.empty-reports p {
+    max-width: 430px;
+
+    margin: 0 auto 25px;
+
+    color: #64748b;
+
+    line-height: 1.6;
+
+    font-size: 14px;
+}
+
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .report-summary {
+        grid-template-columns: 1fr;
+    }
+
+
+    .summary-card {
+        padding: 18px;
+    }
+
+
+    .reports-panel {
+        padding: 18px;
+    }
+
+
+    .reports-table {
+        min-width: 780px;
+    }
+
+
+    .reports-table th,
+    .reports-table td {
+        padding: 13px 12px;
+    }
+
+
+    .empty-reports {
+        padding: 50px 15px;
+    }
+
+}

@@ -1,0 +1,333 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Violations | PackSure{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/violations.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="violations-page">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <div>
+            <span class="eyebrow">COMPLIANCE</span>
+
+            <h1>Violations</h1>
+
+            <p>
+                Review products that require compliance attention.
+            </p>
+        </div>
+    </div>
+
+
+    <!-- SUMMARY CARDS -->
+    <div class="violation-summary">
+
+        <div class="summary-card">
+            <div class="summary-icon danger">
+                ⚠
+            </div>
+
+            <div>
+                <span>Total Violations</span>
+                <strong>{{ violations|length }}</strong>
+            </div>
+        </div>
+
+
+        <div class="summary-card">
+            <div class="summary-icon warning">
+                !
+            </div>
+
+            <div>
+                <span>High Risk</span>
+                <strong>{{ high_risk_count }}</strong>
+            </div>
+        </div>
+
+
+        <div class="summary-card">
+            <div class="summary-icon info">
+                ◷
+            </div>
+
+            <div>
+                <span>Needs Review</span>
+                <strong>{{ review_count }}</strong>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- FILTER BAR -->
+    <div class="filter-panel">
+
+        <div class="filter-left">
+
+            <div class="search-box">
+
+                <span>⌕</span>
+
+                <input
+                    type="text"
+                    id="violationSearch"
+                    placeholder="Search product..."
+                >
+
+            </div>
+
+
+            <select id="statusFilter">
+
+                <option value="all">
+                    All Status
+                </option>
+
+                <option value="violation">
+                    Violation
+                </option>
+
+                <option value="high_risk">
+                    High Risk
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="clear-filter-btn"
+            id="clearFiltersBtn"
+        >
+            Clear Filters
+        </button>
+
+    </div>
+
+
+    <!-- VIOLATIONS TABLE -->
+    <div class="panel violations-panel">
+
+        <div class="panel-header">
+
+            <div>
+                <h2>Detected Violations</h2>
+
+                <p>
+                    Products with compliance issues detected during inspection.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table class="violations-table">
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Product</th>
+                        <th>Status</th>
+                        <th>Compliance Score</th>
+                        <th>Inspection Date</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="violationsTableBody">
+
+                    {% for inspection in violations %}
+
+                    <tr
+                        class="violation-row"
+                        data-product="{{ inspection.product_name|lower }}"
+                        data-status="{{ inspection.status }}"
+                    >
+
+                        <td>
+                            <span class="inspection-id">
+                                #{{ inspection.id }}
+                            </span>
+                        </td>
+
+
+                        <td>
+
+                            <div class="product-cell">
+
+                                <div class="product-avatar">
+                                    {{ inspection.product_name|first|upper }}
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        {{ inspection.product_name|default:"Unknown Product" }}
+                                    </strong>
+
+                                    <span>
+                                        Product Inspection
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            {% if inspection.status == "high_risk" %}
+
+                            <span class="status-badge high-risk">
+                                High Risk
+                            </span>
+
+                            {% else %}
+
+                            <span class="status-badge violation">
+                                Violation
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="score-wrapper">
+
+                                <div class="score-bar">
+
+                                    <div
+                                        class="score-fill
+                                        {% if inspection.compliance_score < 50 %}
+                                            low
+                                        {% elif inspection.compliance_score < 75 %}
+                                            medium
+                                        {% else %}
+                                            good
+                                        {% endif %}"
+                                        style="width: {{ inspection.compliance_score }}%;"
+                                    ></div>
+
+                                </div>
+
+                                <strong>
+                                    {{ inspection.compliance_score }}%
+                                </strong>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="date-cell">
+
+                                <strong>
+                                    {{ inspection.created_at|date:"d M Y" }}
+                                </strong>
+
+                                <span>
+                                    {{ inspection.created_at|date:"h:i A" }}
+                                </span>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <a
+                                href="{% url 'inspection_result' inspection.id %}"
+                                class="view-btn"
+                            >
+                                View
+                                <span>→</span>
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr id="emptyRow">
+
+                        <td
+                            colspan="6"
+                            class="empty-state"
+                        >
+
+                            <div class="empty-icon">
+                                ✓
+                            </div>
+
+                            <h3>No violations found</h3>
+
+                            <p>
+                                There are currently no products requiring compliance attention.
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- NO SEARCH RESULTS -->
+        <div
+            id="noSearchResults"
+            class="no-search-results"
+        >
+
+            <div class="empty-icon">
+                ⌕
+            </div>
+
+            <h3>No matching violations</h3>
+
+            <p>
+                Try changing your search or filter.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script src="{% static 'js/violations.js' %}"></script>
+
+{% endblock %}
