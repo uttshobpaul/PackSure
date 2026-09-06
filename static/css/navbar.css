@@ -1,0 +1,438 @@
+/* =========================================================
+   PACKSURE RESPONSIVE NAVBAR
+   Desktop remains unchanged
+   Mobile gets top navbar + slide-out menu
+========================================================= */
+
+
+/* =========================================================
+   MOBILE HEADER
+========================================================= */
+
+.mobile-brand {
+    display: none;
+}
+
+.mobile-menu-btn {
+    display: none;
+}
+
+
+/* =========================================================
+   MOBILE OVERLAY
+========================================================= */
+
+.mobile-menu-overlay {
+    display: none;
+}
+
+
+/* =========================================================
+   MOBILE VIEW
+========================================================= */
+
+@media (max-width: 768px) {
+
+    /* -----------------------------------------------------
+       BODY / LAYOUT
+    ----------------------------------------------------- */
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .app-layout {
+        display: block;
+        width: 100%;
+        min-height: 100vh;
+    }
+
+
+    /* -----------------------------------------------------
+       SIDEBAR
+       Hidden by default on mobile
+    ----------------------------------------------------- */
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        width: 280px;
+        height: 100vh;
+
+        z-index: 9999;
+
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+
+        overflow-y: auto;
+
+        box-shadow: 10px 0 35px rgba(0, 0, 0, 0.18);
+    }
+
+
+    /* Sidebar opened */
+
+    body.mobile-menu-open .sidebar {
+        transform: translateX(0);
+    }
+
+
+    /* -----------------------------------------------------
+       MAIN CONTENT
+    ----------------------------------------------------- */
+
+    .main-content {
+        width: 100%;
+        min-width: 0;
+        margin-left: 0;
+    }
+
+
+    /* -----------------------------------------------------
+       TOPBAR
+    ----------------------------------------------------- */
+
+    .topbar {
+        position: sticky;
+        top: 0;
+
+        z-index: 1000;
+
+        width: 100%;
+        height: 68px;
+
+        padding: 0 16px;
+
+        box-sizing: border-box;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE BRAND
+    ----------------------------------------------------- */
+
+    .mobile-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        min-width: 0;
+    }
+
+    .mobile-brand-icon {
+        width: 40px;
+        height: 40px;
+
+        border-radius: 11px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #2563eb;
+        color: white;
+
+        font-size: 20px;
+        font-weight: 800;
+
+        box-shadow: 0 6px 15px rgba(37, 99, 235, 0.25);
+    }
+
+    .mobile-brand-name {
+        font-size: 18px;
+        font-weight: 800;
+
+        color: var(--text, #0f172a);
+
+        white-space: nowrap;
+    }
+
+
+    /* -----------------------------------------------------
+       TOPBAR RIGHT
+    ----------------------------------------------------- */
+
+    .topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        margin-left: auto;
+    }
+
+
+    /* -----------------------------------------------------
+       NOTIFICATION
+    ----------------------------------------------------- */
+
+    .notification-btn {
+        width: 42px;
+        height: 42px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 12px;
+
+        flex-shrink: 0;
+    }
+
+
+    /* -----------------------------------------------------
+       USER
+       Hide text on mobile, keep avatar
+    ----------------------------------------------------- */
+
+    .topbar-user > div:last-child {
+        display: none;
+    }
+
+    .topbar-user {
+        display: flex;
+        align-items: center;
+    }
+
+
+    /* -----------------------------------------------------
+       HAMBURGER
+    ----------------------------------------------------- */
+
+    .mobile-menu-btn {
+        display: flex;
+
+        width: 42px;
+        height: 42px;
+
+        align-items: center;
+        justify-content: center;
+
+        border: 1px solid var(--border, #dbe3ef);
+
+        border-radius: 12px;
+
+        background: var(--surface, #ffffff);
+
+        color: var(--text, #0f172a);
+
+        font-size: 23px;
+
+        cursor: pointer;
+
+        transition: all 0.2s ease;
+    }
+
+    .mobile-menu-btn:hover {
+        border-color: #2563eb;
+        color: #2563eb;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE MENU OVERLAY
+    ----------------------------------------------------- */
+
+    .mobile-menu-overlay {
+        position: fixed;
+
+        inset: 0;
+
+        z-index: 9998;
+
+        display: block;
+
+        background: rgba(15, 23, 42, 0.45);
+
+        opacity: 0;
+        visibility: hidden;
+
+        transition:
+            opacity 0.3s ease,
+            visibility 0.3s ease;
+    }
+
+    body.mobile-menu-open .mobile-menu-overlay {
+        opacity: 1;
+        visibility: visible;
+    }
+
+
+    /* -----------------------------------------------------
+       PAGE CONTAINER
+    ----------------------------------------------------- */
+
+    .page-container {
+        width: 100%;
+        max-width: 100%;
+
+        padding: 24px 16px 40px;
+
+        box-sizing: border-box;
+    }
+
+
+    /* -----------------------------------------------------
+       PAGE HEADER
+    ----------------------------------------------------- */
+
+    .page-header {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+
+    .page-header h1 {
+        font-size: 32px;
+        line-height: 1.15;
+    }
+
+
+    .page-header p {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+
+    /* -----------------------------------------------------
+       BACK BUTTON
+    ----------------------------------------------------- */
+
+    .topbar-left {
+        display: flex;
+        align-items: center;
+    }
+
+    .page-back-btn {
+        width: 42px;
+        height: 42px;
+
+        border-radius: 12px;
+
+        margin-right: 8px;
+    }
+
+
+    /* -----------------------------------------------------
+       SCAN / GENERAL PANELS
+    ----------------------------------------------------- */
+
+    .panel {
+        width: 100%;
+        max-width: 100%;
+
+        box-sizing: border-box;
+    }
+
+
+    /* -----------------------------------------------------
+       SIDEBAR MOBILE SPACING
+    ----------------------------------------------------- */
+
+    .sidebar .brand {
+        padding-top: 20px;
+    }
+
+
+    /* -----------------------------------------------------
+       SIDEBAR CLOSE FEEL
+    ----------------------------------------------------- */
+
+    .sidebar-nav {
+        padding-bottom: 20px;
+    }
+
+
+    /* -----------------------------------------------------
+       FORM ELEMENTS
+    ----------------------------------------------------- */
+
+    input,
+    textarea,
+    select,
+    button {
+        max-width: 100%;
+    }
+
+
+    /* -----------------------------------------------------
+       UPLOAD BOX
+    ----------------------------------------------------- */
+
+    .upload-box {
+        width: 100%;
+        min-height: 220px;
+
+        box-sizing: border-box;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE UPLOAD BUTTONS
+    ----------------------------------------------------- */
+
+    .upload-actions {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .upload-action-btn {
+        width: 100%;
+        min-height: 48px;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE PRIMARY BUTTON
+    ----------------------------------------------------- */
+
+    .inspection-btn {
+        width: 100%;
+        min-height: 52px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .topbar {
+        height: 64px;
+        padding: 0 12px;
+    }
+
+    .mobile-brand-icon {
+        width: 38px;
+        height: 38px;
+    }
+
+    .mobile-brand-name {
+        font-size: 17px;
+    }
+
+    .notification-btn,
+    .mobile-menu-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .page-container {
+        padding: 20px 12px 35px;
+    }
+
+    .page-header h1 {
+        font-size: 29px;
+    }
+
+}
