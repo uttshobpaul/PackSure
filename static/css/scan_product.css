@@ -1,0 +1,727 @@
+/* =========================================================
+   PACKSURE - SCAN PRODUCT PAGE
+   ========================================================= */
+
+.scan-page {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   MAIN SCAN PANEL
+   ========================================================= */
+
+.scan-panel {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.scan-panel .panel-header {
+    width: 100%;
+    margin: 0;
+    padding: 0 0 28px 0;
+    box-sizing: border-box;
+}
+
+.scan-panel .panel-header h2 {
+    margin: 0 0 6px 0;
+}
+
+.scan-panel .panel-header p {
+    margin: 0;
+}
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.scan-panel form {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.scan-panel .form-group {
+    width: 100%;
+    margin: 0 0 28px 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   FORM LABELS
+   ========================================================= */
+
+.scan-panel .form-group > label:not(.upload-box) {
+    display: block;
+    width: 100%;
+    margin: 0 0 10px 0;
+    padding: 0;
+    
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--text);
+    
+    text-align: left;
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   PRODUCT NAME INPUT
+   ========================================================= */
+
+.scan-panel .form-group input[type="text"] {
+    display: block;
+    width: 100%;
+    height: 48px;
+    
+    margin: 0;
+    padding: 0 16px;
+    
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    
+    background: var(--surface);
+    color: var(--text);
+    
+    font-size: 15px;
+    font-family: inherit;
+    
+    outline: none;
+    box-sizing: border-box;
+    
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.scan-panel .form-group input[type="text"]:focus {
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 3px rgba(0, 174, 239, 0.12);
+}
+
+.scan-panel .form-group input[type="text"]::placeholder {
+    color: #94a3b8;
+}
+
+/* =========================================================
+   PRODUCT IMAGE LABEL
+   ========================================================= */
+
+.scan-panel .form-group > label.upload-box {
+    display: flex;
+    width: 100%;
+    min-height: 260px;
+    
+    margin: 0;
+    padding: 30px;
+    
+    box-sizing: border-box;
+    
+    border: 2px dashed var(--border);
+    border-radius: 18px;
+    
+    background: var(--surface);
+    
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    text-align: center;
+    cursor: pointer;
+    
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+/* =========================================================
+   UPLOAD BOX HOVER
+   ========================================================= */
+
+.scan-panel .upload-box:hover,
+.scan-panel .upload-box.drag-over {
+    border-color: var(--primary);
+
+    background: rgba(0, 174, 239, 0.05);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 30px rgba(0, 174, 239, 0.08);
+}
+
+/* =========================================================
+   UPLOAD ICON
+   ========================================================= */
+
+.scan-panel .upload-icon {
+    width: 64px;
+    height: 64px;
+
+    margin: 0 0 18px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background: rgba(0, 174, 239, 0.12);
+    color: var(--primary);
+
+    font-size: 32px;
+    font-weight: 700;
+
+    flex-shrink: 0;
+}
+
+/* =========================================================
+   UPLOAD TEXT
+   ========================================================= */
+
+.scan-panel .upload-box strong {
+    display: block;
+
+    margin: 0 0 8px 0;
+
+    color: var(--text);
+
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.scan-panel .upload-box span {
+    display: block;
+
+    margin: 0;
+
+    color: #94a3b8;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* =========================================================
+   UPLOAD ACTION BUTTONS
+   ========================================================= */
+
+.upload-actions {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    margin: 18px 0 0 0;
+    padding: 0;
+
+    flex-wrap: wrap;
+
+    box-sizing: border-box;
+}
+
+.upload-action-btn {
+    min-height: 42px;
+
+    padding: 10px 18px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background: var(--surface);
+    color: var(--text);
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.upload-action-btn:hover {
+    border-color: var(--primary);
+
+    color: var(--primary);
+
+    background: rgba(0, 174, 239, 0.05);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 15px rgba(0, 174, 239, 0.08);
+}
+
+/* =========================================================
+   IMAGE PREVIEW
+   ========================================================= */
+
+.preview-container {
+    display: none;
+
+    width: 100%;
+
+    margin: 24px 0 0 0;
+    padding: 20px;
+
+    border: 1px solid var(--border);
+    border-radius: 16px;
+
+    background: var(--surface);
+
+    box-sizing: border-box;
+}
+
+.preview-container.show {
+    display: block;
+}
+
+.preview-container p {
+    margin: 0 0 15px 0;
+
+    color: var(--text);
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+#image-preview {
+    display: block;
+
+    width: 100%;
+    max-height: 420px;
+
+    margin: 0;
+
+    object-fit: contain;
+
+    border-radius: 12px;
+
+    background: #f1f5f9;
+}
+
+/* =========================================================
+   SELECTED FILE
+   ========================================================= */
+
+.selected-file {
+    width: 100%;
+
+    margin: 12px 0 0 0;
+    padding: 10px 14px;
+
+    border-radius: 9px;
+
+    background: rgba(0, 174, 239, 0.08);
+
+    color: var(--primary);
+
+    font-size: 13px;
+    font-weight: 600;
+
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   INSPECTION BUTTON
+   ========================================================= */
+
+.scan-panel .inspection-btn {
+    display: flex;
+
+    width: 100%;
+    min-height: 54px;
+
+    margin: 10px 0 0 0;
+    padding: 14px 20px;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 0;
+    border-radius: 12px;
+
+    background: var(--primary);
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-sizing: border-box;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+.scan-panel .inspection-btn:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.05);
+
+    box-shadow:
+        0 10px 25px rgba(0, 174, 239, 0.25);
+}
+
+.scan-panel .inspection-btn:active {
+    transform: translateY(0);
+}
+
+/* =========================================================
+   ERROR MODAL
+   ========================================================= */
+
+.error-modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(15, 23, 42, 0.65);
+
+    backdrop-filter: blur(5px);
+
+    box-sizing: border-box;
+}
+
+.error-modal-box {
+    position: relative;
+
+    width: min(460px, 100%);
+
+    padding: 35px;
+
+    border-radius: 20px;
+
+    background: var(--surface);
+    color: var(--text);
+
+    text-align: center;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.25);
+
+    box-sizing: border-box;
+}
+
+.error-modal-close {
+    position: absolute;
+
+    top: 14px;
+    right: 16px;
+
+    width: 36px;
+    height: 36px;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: transparent;
+    color: var(--text);
+
+    font-size: 25px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.error-modal-close:hover {
+    background: rgba(148, 163, 184, 0.12);
+}
+
+.error-icon {
+    width: 64px;
+    height: 64px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(239, 68, 68, 0.12);
+
+    color: #ef4444;
+
+    font-size: 30px;
+}
+
+.error-modal-box h2 {
+    margin: 0 0 12px;
+}
+
+.error-modal-box p {
+    margin: 0 0 25px;
+
+    color: #64748b;
+
+    line-height: 1.6;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .scan-panel {
+        max-width: 100%;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .scan-panel {
+        width: 100%;
+        margin: 0;
+    }
+
+    .scan-panel .panel-header {
+        padding-bottom: 22px;
+    }
+
+    .scan-panel .form-group {
+        margin-bottom: 22px;
+    }
+
+    .scan-panel .upload-box {
+        min-height: 220px;
+
+        padding: 20px;
+    }
+
+    .scan-panel .upload-icon {
+        width: 56px;
+        height: 56px;
+
+        margin-bottom: 14px;
+
+        font-size: 27px;
+    }
+
+    .scan-panel .upload-box strong {
+        font-size: 15px;
+    }
+
+    .scan-panel .upload-box span {
+        font-size: 12px;
+    }
+
+    .upload-actions {
+        gap: 10px;
+    }
+
+    .upload-action-btn {
+        flex: 1;
+        min-width: 130px;
+    }
+
+    .scan-panel .inspection-btn {
+        min-height: 50px;
+    }
+
+    .error-modal-box {
+        padding: 30px 22px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    .scan-panel .upload-box {
+        min-height: 200px;
+    }
+
+    .upload-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .upload-action-btn {
+        width: 100%;
+    }
+}
+
+/* =====================================================
+   CAMERA MODAL
+   ===================================================== */
+
+.camera-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(7, 15, 30, 0.78);
+    backdrop-filter: blur(8px);
+    z-index: 9998;
+}
+
+.camera-modal-box {
+    position: fixed;
+    z-index: 9999;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: min(720px, calc(100% - 30px));
+
+    background: var(--surface);
+    color: var(--text);
+
+    border-radius: 22px;
+    padding: 28px;
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.35);
+}
+
+.camera-modal-box h2 {
+    margin: 0 0 6px;
+    font-size: 22px;
+}
+
+.camera-modal-box p {
+    margin: 0 0 20px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.camera-close {
+    position: absolute;
+
+    top: 15px;
+    right: 15px;
+
+    width: 38px;
+    height: 38px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(148, 163, 184, 0.12);
+
+    color: var(--text);
+
+    font-size: 25px;
+
+    cursor: pointer;
+}
+
+.camera-close:hover {
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+}
+
+#cameraVideo {
+    display: block;
+
+    width: 100%;
+    max-height: 500px;
+
+    object-fit: cover;
+
+    border-radius: 16px;
+
+    background: #000;
+}
+
+.camera-actions {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 20px;
+}
+
+.camera-capture-btn {
+    border: none;
+
+    padding: 14px 28px;
+
+    border-radius: 12px;
+
+    background: var(--primary);
+    color: white;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px rgba(0, 174, 239, 0.22);
+
+    transition: 0.2s ease;
+}
+
+.camera-capture-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+}
+
+.camera-capture-btn:active {
+    transform: translateY(0);
+}
+
+
+/* =====================================================
+   MOBILE CAMERA
+   ===================================================== */
+
+@media (max-width: 700px) {
+
+    .camera-modal-box {
+        width: calc(100% - 20px);
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    #cameraVideo {
+        max-height: 65vh;
+    }
+
+    .camera-capture-btn {
+        width: 100%;
+    }
+}

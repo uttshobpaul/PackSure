@@ -1,456 +1,772 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Inspection Result | PackSure{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/inspection_result.css' %}">
+{% endblock %}
+
 {% block content %}
 
-<div class="page-header">
+<div class="inspection-result-page">
 
-    <div>
-        <span class="eyebrow">INSPECTION COMPLETE</span>
+    <!-- PAGE HEADER -->
+    <div class="result-page-header">
+        <div>
+            <span class="result-eyebrow">INSPECTION COMPLETE</span>
+            <h1>Compliance Result</h1>
+            <p>Analysis completed for {{ inspection.product_name }}.</p>
+        </div>
 
-        <h1>Compliance Result</h1>
-
-        <p>
-            Analysis completed for {{ inspection.product_name }}.
-        </p>
+        <a href="{% url 'scan_product' %}" class="result-primary-btn">
+            <span>+</span>
+            New Inspection
+        </a>
     </div>
 
-    <a href="{% url 'scan_product' %}" class="primary-btn">
-        + New Inspection
-    </a>
-
-</div>
-
-
-<!-- MAIN COMPLIANCE STATUS -->
-
-<div class="result-status
-    {% if analysis.status == 'compliant' %}
-        result-compliant
-    {% elif analysis.status == 'violation' %}
-        result-violation
-    {% else %}
-        result-risk
-    {% endif %}
-">
-
-    <div class="result-icon">
-
-        {% if analysis.status == "compliant" %}
-            ✓
-        {% elif analysis.status == "violation" %}
-            !
+    <!-- COMPLIANCE STATUS -->
+    <section class="compliance-status-card
+        {% if analysis.status == 'compliant' %}
+            status-compliant
+        {% elif analysis.status == 'violation' %}
+            status-violation
         {% else %}
-            ⚠
-        {% endif %}
+            status-high-risk
+        {% endif %}">
 
-    </div>
+        <div class="compliance-status-left">
 
-
-    <div class="result-status-content">
-
-        <span class="result-label">
-            PRODUCT COMPLIANCE STATUS
-        </span>
-
-
-        <h2>
-
-            {% if analysis.status == "compliant" %}
-
-                COMPLIANT
-
-            {% elif analysis.status == "violation" %}
-
-                NON-COMPLIANT
-
-            {% else %}
-
-                HIGH RISK
-
-            {% endif %}
-
-        </h2>
-
-
-        <p>
-
-            {% if analysis.status == "compliant" %}
-
-                No compliance violations were detected.
-
-            {% elif analysis.status == "violation" %}
-
-                Compliance violations were detected. Further inspection may be required.
-
-            {% else %}
-
-                Multiple compliance requirements were not detected. Further inspection is recommended.
-
-            {% endif %}
-
-        </p>
-
-    </div>
-
-
-    <div class="result-score">
-
-        <strong>{{ analysis.score }}%</strong>
-
-        <span>Compliance Score</span>
-
-    </div>
-
-</div>
-
-<!-- OCR Extracted Information -->
-<div class="result-card">
-
-    <h3>Extracted Product Information</h3>
-
-    <div class="extracted-fields">
-
-        <div class="field-row">
-            <span>MRP</span>
-            <strong>
-                {% if fields.mrp %}
-                    ₹{{ fields.mrp }}
+            <div class="compliance-status-icon">
+                {% if analysis.status == "compliant" %}
+                    ✓
+                {% elif analysis.status == "violation" %}
+                    !
                 {% else %}
-                    Not detected
+                    ⚠
                 {% endif %}
-            </strong>
-        </div>
-
-        <div class="field-row">
-            <span>Net Quantity</span>
-            <strong>
-                {% if fields.net_quantity %}
-                    {{ fields.net_quantity }}
-                {% else %}
-                    Not detected
-                {% endif %}
-            </strong>
-        </div>
-
-        <div class="field-row">
-            <span>Manufacturer</span>
-            <strong>
-                {% if fields.manufacturer %}
-                    {{ fields.manufacturer }}
-                {% else %}
-                    Not detected
-                {% endif %}
-            </strong>
-        </div>
-
-        <div class="field-row">
-            <span>Consumer Care</span>
-            <strong>
-                {% if fields.consumer_care %}
-                    {{ fields.consumer_care }}
-                {% else %}
-                    Not detected
-                {% endif %}
-            </strong>
-        </div>
-
-        <div class="field-row">
-            <span>Manufacturing / Use By</span>
-            <strong>
-                {% if fields.manufacturing_date %}
-                    {{ fields.manufacturing_date }}
-                {% else %}
-                    Not detected
-                {% endif %}
-            </strong>
-        </div>
-
-        <div class="field-row">
-            <span>Nutrition Information</span>
-            <strong>
-                {% if fields.nutrition_information %}
-                    Detected
-                {% else %}
-                    Not detected
-                {% endif %}
-            </strong>
-        </div>
-
-    </div>
-
-</div>
-
-
-
-<!-- PRODUCT DETAILS -->
-
-<div class="dashboard-grid">
-
-    <div class="panel">
-
-        <div class="panel-header">
-
-            <div>
-                <h2>Product Details</h2>
-                <p>Inspection information</p>
             </div>
 
-        </div>
+            <div class="compliance-status-content">
+                <span class="status-small-label">PRODUCT COMPLIANCE STATUS</span>
 
-
-        <div class="result-details">
-
-            <div>
-                <span>Product</span>
-                <strong>{{ inspection.product_name }}</strong>
-            </div>
-
-            <div>
-                <span>Inspection ID</span>
-                <strong>#{{ inspection.id }}</strong>
-            </div>
-
-            <div>
-                <span>Status</span>
-
-                <strong>
-
+                <h2>
                     {% if analysis.status == "compliant" %}
-                        Compliant
+                        COMPLIANT
                     {% elif analysis.status == "violation" %}
-                        Non-Compliant
+                        NON-COMPLIANT
                     {% else %}
-                        High Risk
+                        HIGH RISK
                     {% endif %}
+                </h2>
 
-                </strong>
-
-            </div>
-
-            <div>
-                <span>Score</span>
-                <strong>{{ analysis.score }}%</strong>
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- ANALYSIS SUMMARY -->
-
-    <div class="panel">
-
-        <div class="panel-header">
-
-            <div>
-                <h2>Analysis Summary</h2>
-                <p>Compliance checks performed</p>
+                <p>
+                    {% if analysis.status == "compliant" %}
+                        No compliance violations were detected.
+                    {% elif analysis.status == "violation" %}
+                        Compliance violations were detected. Further inspection may be required.
+                    {% else %}
+                        Multiple compliance requirements were not detected. Further inspection is recommended.
+                    {% endif %}
+                </p>
             </div>
 
         </div>
 
-
-        <div class="analysis-summary">
-
-            <div class="summary-number">
-                {{ analysis.detected|length }}
-            </div>
-
-            <div>
-                <strong>Declarations Detected</strong>
-                <span>
-                    Required package information identified
-                </span>
-            </div>
-
+        <div class="compliance-score">
+            <strong>{{ analysis.score }}%</strong>
+            <span>Compliance Score</span>
         </div>
 
+    </section>
 
-        <div class="analysis-summary">
+    <!-- EVIDENCE IMAGE - TOP -->
+<section class="result-card evidence-card evidence-card-top">
 
-            <div class="summary-number violation-number">
-                {{ analysis.violations|length }}
-            </div>
-
-            <div>
-                <strong>Violations Found</strong>
-                <span>
-                    Missing or undetected declarations
-                </span>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-
-<!-- DECLARATION ANALYSIS -->
-
-<div class="panel result-panel">
-
-    <div class="panel-header">
-
+    <div class="result-card-header">
         <div>
-            <h2>Declaration Analysis</h2>
-
-            <p>
-                Package declarations checked by PackSure
-            </p>
-        </div>
-
-    </div>
-
-
-    <div class="inspection-list">
-
-        {% for declaration in analysis.detected %}
-
-        <div class="inspection-row">
-
-            <div class="product-symbol">
-                ✓
-            </div>
-
-            <div class="inspection-product">
-
-                <strong>
-                    {{ declaration }}
-                </strong>
-
-                <span>
-                    Declaration detected
-                </span>
-
-            </div>
-
-            <span class="status compliant">
-                Detected
-            </span>
-
-        </div>
-
-        {% empty %}
-
-        <p>No declarations detected.</p>
-
-        {% endfor %}
-
-    </div>
-
-</div>
-
-
-
-<!-- VIOLATIONS -->
-
-{% if analysis.violations %}
-
-<div class="panel result-panel violation-panel">
-
-    <div class="panel-header">
-
-        <div>
-
-            <h2>⚠ Violations Found</h2>
-
-            <p>
-                {{ analysis.violations|length }}
-                compliance issue{{ analysis.violations|length|pluralize }}
-                detected during inspection.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="inspection-list">
-
-        {% for violation in analysis.violations %}
-
-        <div class="inspection-row">
-
-            <div class="product-symbol violation-symbol">
-                !
-            </div>
-
-
-            <div class="inspection-product">
-
-                <strong>
-                    {{ violation.field }}
-                </strong>
-
-                <span>
-                    {{ violation.message }}
-                </span>
-
-            </div>
-
-
-            <span class="status violation">
-                Violation
-            </span>
-
-        </div>
-
-        {% endfor %}
-
-    </div>
-
-</div>
-
-{% endif %}
-
-
-
-<!-- EVIDENCE IMAGE -->
-
-<div class="panel result-panel">
-
-    <div class="panel-header">
-
-        <div>
-
             <h2>Evidence Image</h2>
-
-            <p>
-                Product image submitted for inspection
-            </p>
-
+            <p>Product image submitted for inspection and AI analysis</p>
         </div>
 
+        <span class="evidence-status">
+            Image Evidence
+        </span>
     </div>
 
+    <div class="evidence-image-wrapper">
 
-    <div class="evidence-image-container">
+        {% if inspection.image %}
 
         <img
             src="{{ inspection.image.url }}"
             alt="Product package evidence"
+            class="evidence-image"
+            id="evidenceImage"
         >
+
+        <button
+            type="button"
+            class="image-expand-btn"
+            id="imageExpandBtn"
+            aria-label="View image"
+        >
+            ⛶
+        </button>
+
+        {% else %}
+
+        <div class="no-image">
+            <span>◫</span>
+            <p>No evidence image available</p>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+    <!-- MAIN RESULT GRID -->
+    <div class="result-main-grid">
+
+        <!-- LEFT COLUMN -->
+        <div class="result-left-column">
+
+            <!-- EXTRACTED PRODUCT INFORMATION -->
+            <section class="result-card">
+
+                <div class="result-card-header">
+                    <div>
+                        <h2>Extracted Product Information</h2>
+                        <p>Information detected from the product label</p>
+                    </div>
+                </div>
+
+                <div class="extracted-information">
+
+                    <div class="information-item">
+                        <span class="information-label">MRP</span>
+                        <strong>
+                            {% if fields.mrp %}
+                                ₹{{ fields.mrp }}
+                            {% else %}
+                                Not detected
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span class="information-label">Net Quantity</span>
+                        <strong>
+                            {% if fields.net_quantity %}
+                                {{ fields.net_quantity }}
+                            {% else %}
+                                Not detected
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span class="information-label">Manufacturer</span>
+                        <strong>
+                            {% if fields.manufacturer %}
+                                {{ fields.manufacturer }}
+                            {% else %}
+                                Not detected
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span class="information-label">Consumer Care</span>
+                        <strong>
+                            {% if fields.consumer_care %}
+                                {{ fields.consumer_care }}
+                            {% else %}
+                                Not detected
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span class="information-label">Manufacturing / Use By</span>
+                        <strong>
+                            {% if fields.manufacturing_date %}
+                                {{ fields.manufacturing_date }}
+                            {% else %}
+                                Not detected
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span class="information-label">Nutrition Information</span>
+                        <strong>
+                            {% if fields.nutrition_information %}
+                                Detected
+                            {% else %}
+                                Not detected
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- DECLARATION ANALYSIS -->
+            <section class="result-card">
+
+                <div class="result-card-header">
+                    <div>
+                        <h2>Declaration Analysis</h2>
+                        <p>Package declarations checked by PackSure</p>
+                    </div>
+                </div>
+
+                <div class="declaration-list">
+
+                    {% for declaration in analysis.detected %}
+
+                    <div class="declaration-row">
+
+                        <div class="declaration-icon declaration-success">
+                            ✓
+                        </div>
+
+                        <div class="declaration-content">
+                            <strong>{{ declaration }}</strong>
+                            <span>Declaration detected</span>
+                        </div>
+
+                        <span class="result-badge badge-success">
+                            Detected
+                        </span>
+
+                    </div>
+
+                    {% empty %}
+
+                    <div class="empty-result">
+                        <span>!</span>
+                        <p>No declarations detected.</p>
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+            <!-- VIOLATIONS -->
+            {% if analysis.violations %}
+
+            <section class="result-card violation-card">
+
+                <div class="result-card-header">
+                    <div>
+                        <h2>
+                            <span class="warning-icon">⚠</span>
+                            Violations Found
+                        </h2>
+
+                        <p>
+                            {{ analysis.violations|length }}
+                            compliance issue{{ analysis.violations|length|pluralize }}
+                            detected during inspection.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="violation-list">
+
+                    {% for violation in analysis.violations %}
+
+                    <div class="violation-row">
+
+                        <div class="declaration-icon declaration-danger">
+                            !
+                        </div>
+
+                        <div class="declaration-content">
+                            <strong>{{ violation.field }}</strong>
+                            <span>{{ violation.message }}</span>
+                        </div>
+
+                        <span class="result-badge badge-danger">
+                            Violation
+                        </span>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+
+            <!-- REGULATORY REFERENCES -->
+<section class="result-card references-card">
+
+    <div class="result-card-header">
+
+        <div>
+            <span class="result-eyebrow">VERIFICATION SOURCES</span>
+            <h2>Regulatory References</h2>
+            <p>
+                Official sources that can be used to verify the inspection.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="reference-list">
+
+        <a
+            href="https://fssai.gov.in/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="reference-item"
+        >
+
+            <div class="reference-icon">
+                ↗
+            </div>
+
+            <div>
+                <strong>FSSAI</strong>
+                <span>
+                    Food Safety and Standards Authority of India
+                </span>
+            </div>
+
+        </a>
+
+        <a
+            href="https://foscos.fssai.gov.in/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="reference-item"
+        >
+
+            <div class="reference-icon">
+                ↗
+            </div>
+
+            <div>
+                <strong>FoSCoS</strong>
+                <span>
+                    FSSAI Food Safety Compliance System
+                </span>
+            </div>
+
+        </a>
+
+        <a
+            href="https://consumeraffairs.nic.in/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="reference-item"
+        >
+
+            <div class="reference-icon">
+                ↗
+            </div>
+
+            <div>
+                <strong>Department of Consumer Affairs</strong>
+                <span>
+                    Consumer protection and legal metrology information
+                </span>
+            </div>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+            <!-- AI HEALTH & AGE SUITABILITY -->
+<section class="result-card health-card">
+
+    <div class="result-card-header health-card-header">
+
+        <div>
+            <span class="ai-eyebrow">AI SAFETY ANALYSIS</span>
+            <h2>Health & Age Suitability</h2>
+            <p>
+                Preliminary guidance based on detected product information.
+            </p>
+        </div>
+
+        <span class="ai-status-badge">
+            AI Analysis
+        </span>
+
+    </div>
+
+    <div class="health-grid">
+
+        <!-- CHILDREN -->
+        <div class="health-item health-children">
+
+            <div class="health-icon">
+                🧒
+            </div>
+
+            <div class="health-content">
+
+                <div class="health-title-row">
+                    <h3>Children</h3>
+                    <span class="health-status health-review">
+                        Review
+                    </span>
+                </div>
+
+                <p>
+                    Suitability for children should be checked against
+                    ingredients, sugar, allergens, additives and nutritional
+                    information before consumption.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- ADULTS -->
+        <div class="health-item health-adults">
+
+            <div class="health-icon">
+                🧑
+            </div>
+
+            <div class="health-content">
+
+                <div class="health-title-row">
+                    <h3>Adults</h3>
+                    <span class="health-status health-generally-ok">
+                        Generally Suitable
+                    </span>
+                </div>
+
+                <p>
+                    Generally suitable for adults when consumed according to
+                    the product instructions and individual dietary needs.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- OLDER ADULTS -->
+        <div class="health-item health-older">
+
+            <div class="health-icon">
+                🧓
+            </div>
+
+            <div class="health-content">
+
+                <div class="health-title-row">
+                    <h3>Older Adults</h3>
+                    <span class="health-status health-review">
+                        Review
+                    </span>
+                </div>
+
+                <p>
+                    Older adults should review nutritional information,
+                    allergens, sugar, sodium and other dietary restrictions
+                    before consumption.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- GENERAL HEALTH -->
+        <div class="health-item health-general">
+
+            <div class="health-icon">
+                ❤️
+            </div>
+
+            <div class="health-content">
+
+                <div class="health-title-row">
+                    <h3>General Health</h3>
+                    <span class="health-status health-check">
+                        Requires Verification
+                    </span>
+                </div>
+
+                <p>
+                    Health suitability cannot be confirmed until the complete
+                    ingredient and nutrition information has been successfully
+                    extracted and verified.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="health-disclaimer">
+
+        <span>ⓘ</span>
+
+        <p>
+            This is an AI-assisted informational assessment and is not medical
+            advice. Final suitability should be determined using the complete
+            product label and individual health requirements.
+        </p>
+
+    </div>
+
+</section>
+
+            {% endif %}
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="result-right-column">
+
+            <!-- PRODUCT DETAILS -->
+            <section class="result-card">
+
+                <div class="result-card-header">
+                    <div>
+                        <h2>Product Details</h2>
+                        <p>Inspection information</p>
+                    </div>
+                </div>
+
+                <div class="product-details-list">
+
+                    <div class="product-detail-item">
+                        <span>Product</span>
+                        <strong>{{ inspection.product_name }}</strong>
+                    </div>
+
+                    <div class="product-detail-item">
+                        <span>Inspection ID</span>
+                        <strong>#{{ inspection.id }}</strong>
+                    </div>
+
+                    <div class="product-detail-item">
+                        <span>Status</span>
+
+                        <strong>
+                            {% if analysis.status == "compliant" %}
+                                Compliant
+                            {% elif analysis.status == "violation" %}
+                                Non-Compliant
+                            {% else %}
+                                High Risk
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                    <div class="product-detail-item">
+                        <span>Score</span>
+                        <strong>{{ analysis.score }}%</strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- ANALYSIS SUMMARY -->
+            <section class="result-card">
+
+                <div class="result-card-header">
+                    <div>
+                        <h2>Analysis Summary</h2>
+                        <p>Compliance checks performed</p>
+                    </div>
+                </div>
+
+                <div class="analysis-summary-list">
+
+                    <div class="analysis-summary-item">
+
+                        <div class="summary-number">
+                            {{ analysis.detected|length }}
+                        </div>
+
+                        <div class="summary-content">
+                            <strong>Declarations Detected</strong>
+                            <span>Required package information identified</span>
+                        </div>
+
+                    </div>
+
+                    <div class="analysis-summary-item">
+
+                        <div class="summary-number summary-danger">
+                            {{ analysis.violations|length }}
+                        </div>
+
+                        <div class="summary-content">
+                            <strong>Violations Found</strong>
+                            <span>Missing or undetected declarations</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- EVIDENCE IMAGE
+            <section class="result-card evidence-card">
+
+                <div class="result-card-header">
+                    <div>
+                        <h2>Evidence Image</h2>
+                        <p>Product image submitted for inspection</p>
+                    </div>
+                </div>
+
+                <div class="evidence-image-wrapper">
+
+                    {% if inspection.image %}
+
+                    <img
+                        src="{{ inspection.image.url }}"
+                        alt="Product package evidence"
+                        class="evidence-image"
+                        id="evidenceImage"
+                    >
+
+                    <button
+                        type="button"
+                        class="image-expand-btn"
+                        id="imageExpandBtn"
+                        aria-label="View image"
+                    >
+                        ⛶
+                    </button>
+
+                    {% else %}
+
+                    <div class="no-image">
+                        <span>◫</span>
+                        <p>No evidence image available</p>
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </section> -->
+
+        </div>
+
+    </div>
+
+    <!-- RESULT ACTIONS -->
+<section class="result-actions">
+
+    <a
+        href="{% url 'generate_report' inspection.id %}"
+        class="result-action-card action-download"
+    >
+
+        <div class="action-card-icon">
+            ↓
+        </div>
+
+        <div class="action-card-content">
+            <strong>Download Report</strong>
+            <span>Generate and download the inspection PDF report</span>
+        </div>
+
+        <div class="action-arrow">
+            →
+        </div>
+
+    </a>
+
+    <a
+        href="{% url 'scan_product' %}"
+        class="result-action-card action-scan"
+    >
+
+        <div class="action-card-icon">
+            +
+        </div>
+
+        <div class="action-card-content">
+            <strong>Scan Another Product</strong>
+            <span>Start a new product compliance inspection</span>
+        </div>
+
+        <div class="action-arrow">
+            →
+        </div>
+
+    </a>
+
+    <a
+        href="{% url 'inspection_history' %}"
+        class="result-action-card action-history"
+    >
+
+        <div class="action-card-icon">
+            ◷
+        </div>
+
+        <div class="action-card-content">
+            <strong>View Inspection History</strong>
+            <span>Review your previous product inspections</span>
+        </div>
+
+        <div class="action-arrow">
+            →
+        </div>
+
+    </a>
+
+</section>
+    
+</div>
+
+<!-- IMAGE MODAL -->
+<div class="image-modal" id="imageModal">
+
+    <div class="image-modal-overlay" id="imageModalOverlay"></div>
+
+    <div class="image-modal-content">
+
+        <button
+            type="button"
+            class="image-modal-close"
+            id="imageModalClose"
+            aria-label="Close image"
+        >
+            ×
+        </button>
+
+        {% if inspection.image %}
+        <img
+            src="{{ inspection.image.url }}"
+            alt="Product package evidence enlarged"
+            id="modalEvidenceImage"
+        >
+        {% endif %}
 
     </div>
 
 </div>
 
+{% endblock %}
 
-
-<div class="result-actions">
-
-    <a href="{% url 'generate_report' inspection.id %}" class="primary-btn">
-        ↓ Download PDF Report
-    </a>
-
-    <a href="{% url 'scan_product' %}" class="secondary-btn">
-        Scan Another Product
-    </a>
-
-</div>
+{% block extra_js %}
+<script src="{% static 'js/inspection_result.js' %}"></script>
 {% endblock %}

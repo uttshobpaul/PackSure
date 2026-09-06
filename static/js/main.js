@@ -27,3 +27,15 @@ function closeErrorModal() {
         modal.remove();
     }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const backButton = document.getElementById("pageBackBtn");
+
+    if (backButton) {
+        backButton.addEventListener("click", function () {
+            if (window.history.length > 1) {
+                window.history.back();
+            }
+        });
+    }
+});
