@@ -23,4 +23,6 @@ RUN python manage.py collectstatic --noinput
 
 EXPOSE 10000
 
-CMD ["sh", "-c", "python manage.py migrate && gunicorn --bind 0.0.0.0:10000 config.wsgi:application"]
+# Run migrations and start Gunicorn
+# Increased timeout for OCR/image processing
+CMD ["sh", "-c", "python manage.py migrate && gunicorn --bind 0.0.0.0:${PORT:-10000} --timeout 120 config.wsgi:application"]
