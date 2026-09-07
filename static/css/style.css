@@ -105,6 +105,18 @@ a {
     gap: 12px;
 
     padding: 4px 10px 30px;
+
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.brand:hover {
+    text-decoration: none;
+    opacity: 0.95;
+    transform: translateY(-1px);
 }
 
 
@@ -1588,4 +1600,126 @@ a {
 
 .page-back-btn:active {
     transform: translateX(-4px) scale(0.96);
+}
+
+/* =====================================================
+   SECOND PACKSURE WEBSITE BUTTON
+===================================================== */
+
+.packsure-floating-btn {
+    position: fixed;
+
+    top: 18px;
+    right: 150px;
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--primary);
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 17px;
+    font-weight: 800;
+
+    z-index: 9999;
+
+    box-shadow:
+        0 8px 25px rgba(0, 174, 239, 0.30);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.packsure-floating-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+
+    box-shadow:
+        0 12px 30px rgba(0, 174, 239, 0.40);
+}
+
+.packsure-floating-btn:active {
+    transform: scale(0.96);
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .packsure-floating-btn {
+        top: 14px;
+        right: 62px;
+
+        width: 40px;
+        height: 40px;
+
+        font-size: 16px;
+    }
+
+}
+
+/* =====================================================
+   MOBILE PACKSURE BRAND
+===================================================== */
+
+.mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    text-decoration: none;
+
+    color: var(--text);
+
+    cursor: pointer;
+
+    transition: transform 0.2s ease;
+}
+
+.mobile-brand:hover {
+    transform: translateY(-1px);
+}
+
+
+/* P LOGO */
+
+.mobile-brand-icon {
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: var(--primary);
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    box-shadow:
+        0 5px 14px rgba(0, 174, 239, 0.25);
+}
+
+
+/* PACKSURE TEXT */
+
+.mobile-brand-name {
+    font-size: 13px;
+    font-weight: 800;
+
+    color: var(--text);
 }
